@@ -28,7 +28,7 @@ TwoSpeedStack* TwoXStack = new TwoSpeedStack();
 
 //Here there be pointers (hence the cute little *)  
   
-Mode* curMode=blackMagic; //curMode get hype
+Mode* curMode=RDP; //curMode get hype
 //We use this because having a giant switch case every time
 //we want to talk to our current mode is stupid as hell
  void setup(){

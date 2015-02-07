@@ -48,9 +48,16 @@ class RainbowDanceParty:public Mode{
         leds[NUM_LEDS-i+1].b=0,
         leds[NUM_LEDS-i+1].g=0;
         FastLED.show();
-        delay(5);//DRAMATIC EFFECT
+        delay(10);//DRAMATIC EFFECT
       }
-      for(byte i=1;i<maxim;i++){
+      for(byte i=1;i<maxim/3;i++){
+        leds[maxim-i].r=5*i;
+        leds[maxim-i].g=255-5*i;
+        leds[maxim-i].b=0;
+        leds[maxim+i].r=5*i;
+        leds[maxim+i].g=255-5*i;
+        leds[maxim+i].b=0;
+        FastLED.show();
       }
       
     }
