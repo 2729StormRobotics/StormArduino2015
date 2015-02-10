@@ -2,6 +2,7 @@
 #include <Ethernet.h>
 #include <SPI.h>
 //basic stuff^^^^^
+#include "Disabled.h"
 #include "common.h"
 #include "randomMode.h"
 #include "Morse.h"
@@ -19,6 +20,7 @@ enum mode{
   morseMode_  
 };
 
+Disabled* disabled =new Disabled();
 randomMode* randoM = new randomMode(); //don't let this fool you.
 Morse* morse = new Morse();            //Constructors don't real
 BlackMagic* blackMagic=new BlackMagic();       //Only pointers do
@@ -28,7 +30,7 @@ TwoSpeedStack* TwoXStack = new TwoSpeedStack();
 
 //Here there be pointers (hence the cute little *)  
   
-Mode* curMode=RDP; //curMode get hype
+Mode* curMode=disabled; //curMode get hype
 //We use this because having a giant switch case every time
 //we want to talk to our current mode is stupid as hell
  void setup(){
