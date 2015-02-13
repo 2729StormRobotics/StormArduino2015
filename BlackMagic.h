@@ -15,21 +15,20 @@ class BlackMagic:public Mode
       leds[0]=color;//because i starts at one
       FastLED.show();
       boolean first=true;
-      int acc=0;
-      for(int j=1;j<NUM_LEDS;j++)
-      {
-        for(int i=1;i<NUM_LEDS-j;i++)
-         {
+      int acc=0;     
+        for(int i=0;i<NUM_LEDS/2;i++){
           leds[i]=color;
-          leds[i-1]=OFF;
-          leds[acc]=color;
+          leds[NUM_LEDS-i]=color;
           FastLED.show();
-        if(acc!=NUM_LEDS-j)
-        {
-          acc++;
-        }else acc=1;
       } 
-    }
+      for(int i=0;i<NUM_LEDS/2;i++){
+        leds[NUM_LEDS/2-i]=OFF;
+        leds[NUM_LEDS/2+i]=OFF;
+        FastLED.show();
+      }
+      
+      
   }
+    
 };
 #endif
