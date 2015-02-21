@@ -23,10 +23,12 @@ enum mode{
 };
 
 EthernetClient roborio;
-EthernetServer server(6969);
-byte mac[]={0xab,0xcd,0xef,0x12,0x34,0x56};
+byte mac[]={0x0a,0x1b,0x2c,0x3d,0x4e,0x5f};
 IPAddress ip(10,27,29,100);
-//byte ipAddress[] ={10,27,29,2};
+IPAddress gateway(10,27,29,1);
+IPAddress subnet(255,0,0,0);
+IPAddress ipRobo(10,27,29,2);
+byte ipAddress[] ={10,27,29,2};
 
 Disabled* disabled =new Disabled();
 TeleOp* TeleOpMode =new TeleOp();
@@ -38,23 +40,52 @@ DoubleStack* doubleStack=new DoubleStack();
 RainbowDanceParty* RDP=new RainbowDanceParty();
 TwoSpeedStack* TwoXStack = new TwoSpeedStack();
 
+Mode* modeChanger[]={disabled, TeleOpMode, AutoMode, randoM, morse, blackMagic,doubleStack,RDP,TwoXStack};
 //Here there be pointers (hence the cute little *)  
   
 Mode* curMode=blackMagic; //curMode get hype
 //We use this because having a giant switch case every time
 //we want to talk to our current mode is stupid as hell
  void setup(){
-     Ethernet.begin(mac,ip);
+     Ethernet.begin(mac,ip,gateway,subnet);
+          Serial.begin(9600);
+    // roborio.begin();
+     while(!roborio){
+       roborio.connect(ipRobo,1024);
+       Serial.println("Connecting to Ethernet Client...");
+       Serial.println();
+       Serial.print("Status of connection = ");
+       Serial.println(roborio.connect(ipRobo,1024));
+       Serial.print("IP = ");
+       Serial.println(Ethernet.localIP());
+       Serial.println();
+       Serial.print("Mac Address: ");
+       for(int i=0;i<5;i++){
+         Serial.print(mac[i]);
+         Serial.print(".");
+       }
+       Serial.println();
+       delay(2000);
+         }//wait until the client is ready
+        Serial.println("Connected!");
      FastLED.addLeds<WS2812, DATA_PIN, RGB>(leds,NUM_LEDS);
      FastLED.clear();//makes sure nothing is on for no reason, because that happens sometimes
     
-     FastLED.show();//not sure why, and don't feel like finding out why
-     Serial.begin(9600);
+     FastLED.show();//this is due to previous modes already being loaded up on the Arduino before startup.
      
 }
 void loop(){
      if(!roborio.connected()){
-       roborio=server.available();
+       roborio.stop();
+     //  roborio=server.available();
+       Serial.println("Not Connected...");
+       if(roborio.connect(ipAddress,1024)){
+         Serial.println("Connected!");
+         Serial.println("mode will now change properly");
+       }else{
+         Serial.print("Connection failure. Error Code: ");
+         Serial.println(roborio.connect(ipAddress, 1024));
+       }
      }
      modeRead();  
      curMode->start(); //start whatever mode is selected
@@ -66,25 +97,6 @@ void modeRead(){
    }
 }
  void modeChange(byte mode){
-      switch(mode){
-        case 0:    curMode=disabled;
-                   break;
-        case 1:    curMode=TeleOpMode;
-                   break;
-        case 2:    curMode=AutoMode;
-                   break;
-        case 3:    curMode=morse;
-                   break;
-        case 4:    curMode=blackMagic;
-                   break;
-        case 5:    curMode=doubleStack;
-                   break;
-        case 6:    curMode=TwoXStack;
-                   break;
-        case 7:    curMode=RDP;
-                   break;
-        case 8:    curMode=randoM;
-                   break;
+       curMode=modeChanger[mode];
       }
-   }
  
