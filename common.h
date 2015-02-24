@@ -3,7 +3,7 @@
 //what every mode needs to function
 #include "Mode.h"
 #include <Ethernet.h>
-#include <FastLED.h>
+#include "FastLED.h"
 //needs to be a subclass of Mode
 //needs to have the FastLED library
 #define NUM_LEDS 270

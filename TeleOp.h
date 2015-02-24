@@ -3,24 +3,27 @@
 
 class TeleOp:public Mode{
   public:
+    CRGB color;
     byte allianceColor;
     double stringPot;
      void start(){
-       CRGB color;
+       
       allianceColor=getAlliance();
       while(teleOpModeCheck){
-        for(int i=5;i<NUM_LEDS/2;i++){
-          leds[i].r=255;
-          leds[i].g=255;
-          leds[i].b=255;
-          switch(allianceColor){
-            case 1: blueAlliance();
+        if(getClamp()){
+          stringPot=getStringPot();
+          stringPot=stringPot/0.90;
+          setColor();
+          
+        }else{
+            switch(allianceColor){
+            case 0: blueAlliance();
                     break;
-            case 2: redAlliance();
+            case 1: redAlliance();
                     break;
-            case 3: invalid();
+            case 2: invalid();
                     break;
-            case 4: what();
+            case 3: what();
                     break;
           }
         }
@@ -149,11 +152,44 @@ class TeleOp:public Mode{
       }
       FastLED.show();
     }
-    void getStringPot(){
-      roborio.read();
+    void stringPotLights(double potValue){
+      for(int i=0;i<NUM_LEDS*potValue;i++){
+        leds[i]=color;
+      }
+      FastLED.show();
+    }
+    void setColor(){
+      switch(getAlliance()){
+        case 0:{color.r=0,
+                color.g=0,
+                color.b=255;
+                break;
+        }
+        case 1:{color.r=0,
+                color.g=255,
+                color.b=0;
+                break;
+        }
+        case 2:{color.r=255,
+                color.g=0,
+                color.b=0;
+                break;
+        }
+        case 3:{color.r=255,
+                color.g=255,
+                color.b=255;
+                break;
+        }
+      }
+    }
+    double getStringPot(){
+      return (double)roborio.read()/1000.;
     }
     byte getAlliance(){
-      roborio.read();
+      return roborio.read();
+    }
+    boolean getClamp(){
+      return roborio.read();
     }
 };
 
