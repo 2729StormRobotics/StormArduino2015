@@ -22,7 +22,6 @@ IPAddress ip(10,27,29,100);
 IPAddress gateway(10,27,29,1);
 IPAddress subnet(255,0,0,0);
 IPAddress ipRobo(10,27,29,2);
-byte ipAddress[] ={10,27,29,2};
 
 Disabled* disabled =new Disabled();
 TeleOp* TeleOpMode =new TeleOp();
