@@ -15,7 +15,11 @@
 #include "TeleOp.h"
 //our stuff ^^^^^^^
 
-
+/*
+*VERY IMPORTANT NOTE: for some reason on this chipset of LEDs
+*the red and the green are swapped, so all calls of leds[#].g
+*are for the red and all of the calls of leds[#].r are for green
+*/ 
 
 byte mac[]={0x0a,0x1b,0x2c,0x3d,0x4e,0x5f};
 IPAddress ip(10,27,29,100);
