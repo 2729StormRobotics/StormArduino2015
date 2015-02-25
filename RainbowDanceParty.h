@@ -78,6 +78,7 @@ class RainbowDanceParty:public Mode{
         leds[maxim-i].g=0;
         leds[maxim-i].r=255;
         leds[maxim-i].b=changeFactor*i;
+        FastLED.show();
       }
       for(byte i=maxim/2;i<2*maxim/3;i++){
         leds[maxim+i].g=0;
@@ -87,6 +88,7 @@ class RainbowDanceParty:public Mode{
         leds[maxim-i].g=0;
         leds[maxim-i].r=255-changeFactor*i;
         leds[maxim-i].b=255;
+        FastLED.show();
       }
       for(byte i=2*maxim/3;i<5*maxim/6;i++){
         leds[maxim+i].g=changeFactor*i;
@@ -96,6 +98,7 @@ class RainbowDanceParty:public Mode{
         leds[maxim-i].g=changeFactor*i;
         leds[maxim-i].r=0;
         leds[maxim-i].b=255;
+        FastLED.show();
       }
       for(byte i=5*maxim/6;i<maxim;i++){
         leds[maxim+i].g=255;
@@ -105,6 +108,7 @@ class RainbowDanceParty:public Mode{
         leds[maxim-i].g=255;
         leds[maxim-i].r=0;
         leds[maxim-i].b=255-changeFactor*i;
+        FastLED.show();
       }
       delay(10000);
     }
