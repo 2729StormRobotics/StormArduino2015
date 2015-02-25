@@ -49,37 +49,64 @@ class RainbowDanceParty:public Mode{
         FastLED.show();
         delay(5);//DRAMATIC EFFECT
       }
-      double changeFactor=512768/NUM_LEDS;
-      for(byte i=1;i<maxim/2;i++){
-        leds[maxim+i].g=255-(changeFactor*i);
+      double changeFactor=255/(maxim/6);
+      for(byte i=1;i<maxim/6;i++){
+        leds[maxim+i].g=255;
         leds[maxim+i].r=changeFactor*i;
         leds[maxim+i].b=0;
         
-        leds[maxim-i].g=255-(changeFactor*i);
+        leds[maxim-i].g=255;
         leds[maxim-i].r=changeFactor*i;
         leds[maxim-i].b=0;
         FastLED.show();
       }
-      for(byte i=maxim/2+1;i<3*NUM_LEDS/4;i++){
-        leds[maxim+i].g=(changeFactor*i);
-        leds[maxim+i].r=255-changeFactor*i;
-        leds[maxim+i].b=changeFactor*i;
+      for(byte i=maxim/6;i<maxim/3;i++){
+        leds[maxim+i].g=255-(changeFactor*i);
+        leds[maxim+i].r=255;
+        leds[maxim+i].b=0;
         
-        leds[maxim-i].g=(changeFactor*i);
-        leds[maxim-i].r=255-changeFactor*i;
-        leds[maxim-i].b=changeFactor*i;
+        leds[maxim-i].g=255-(changeFactor*i);
+        leds[maxim-i].r=255;
+        leds[maxim-i].b=0;
         FastLED.show();
       }
-      for(byte i=3*maxim/4+1;i<NUM_LEDS;i++){
-        leds[maxim+i].g=changeFactor*i;
-        leds[maxim+i].r=255-changeFactor*i*2;
+      for(byte i=maxim/3;i<maxim/2;i++){
+        leds[maxim+i].g=0;
+        leds[maxim+i].r=255;
         leds[maxim+i].b=changeFactor*i;
         
-        leds[maxim-i].g=changeFactor*i;
-        leds[maxim-i].r=255-changeFactor*i*2;
+        leds[maxim-i].g=0;
+        leds[maxim-i].r=255;
         leds[maxim-i].b=changeFactor*i;
       }
-      delay(1000000);
+      for(byte i=maxim/2;i<2*maxim/3;i++){
+        leds[maxim+i].g=0;
+        leds[maxim+i].r=255-changeFactor*i;
+        leds[maxim+i].b=255;
+        
+        leds[maxim-i].g=0;
+        leds[maxim-i].r=255-changeFactor*i;
+        leds[maxim-i].b=255;
+      }
+      for(byte i=2*maxim/3;i<5*maxim/6;i++){
+        leds[maxim+i].g=changeFactor*i;
+        leds[maxim+i].r=0;
+        leds[maxim+i].b=255;
+        
+        leds[maxim-i].g=changeFactor*i;
+        leds[maxim-i].r=0;
+        leds[maxim-i].b=255;
+      }
+      for(byte i=5*maxim/6;i<maxim;i++){
+        leds[maxim+i].g=255;
+        leds[maxim+i].r=0;
+        leds[maxim+i].b=255-changeFactor*i;
+        
+        leds[maxim-i].g=255;
+        leds[maxim-i].r=0;
+        leds[maxim-i].b=255-changeFactor*i;
+      }
+      delay(10000);
     }
 };
 #endif
