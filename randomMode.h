@@ -1,3 +1,5 @@
+#ifndef RANDOM_MODE
+#define RANDOM_MODE
 #include "common.h"
 
 class randomMode: public Mode {
@@ -14,5 +16,4 @@ class randomMode: public Mode {
     }
   
 };  
-
-
+#endif

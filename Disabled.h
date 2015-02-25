@@ -1,7 +1,7 @@
 #ifndef DISABLED_H
 #define DISABLED_H
 
-#include "Mode.h"
+#include "common.h"
 
 class Disabled:public Mode{
   public:

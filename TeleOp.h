@@ -1,6 +1,6 @@
 #ifndef TELEOP_H
 #define TELEOP_H
-
+#include "common.h"
 class TeleOp:public Mode{
   public:
     CRGB color;
