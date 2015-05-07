@@ -21,7 +21,7 @@
 *are for the red and all of the calls of leds[#].r are for green
 */ 
 
-byte mac[]={0x0a,0x1b,0x2c,0x3d,0x4e,0x5f};
+byte mac[]={0x00,0xAA,0xBB,0xCC,0xDD,0xEE};
 IPAddress ip(10,27,29,100);
 IPAddress gateway(10,27,29,1);
 IPAddress subnet(255,0,0,0);
@@ -40,19 +40,15 @@ TwoSpeedStack* TwoXStack = new TwoSpeedStack();
 Mode* modeChanger[]={disabled, TeleOpMode, AutoMode, randoM, morse, blackMagic,doubleStack,RDP,TwoXStack};
 //Here there be pointers (hence the cute little *)  
   
-Mode* curMode=RDP;//curMode get hype
+Mode* curMode = RDP;//curMode get hype
 //We use this because having a giant switch case every time
 //we want to talk to our current mode is stupid as hell
  void setup(){
-     Serial.begin(9600);
-     Ethernet.begin(mac,ip);
-     delay(1000);
-     roborio=arduino.available();
-     roborio.connect(ipRobo,1024);
-     while(roborio.connect(ipRobo,1024)){
-       Serial.println("Connecting...");
-     }
-       Serial.println("Connected!");
+//     Serial.begin(9600);
+       Ethernet.begin(mac,ip);
+       arduino.begin();
+      delay(1000);
+       roborio=arduino.available();
      FastLED.addLeds<WS2812, DATA_PIN, RGB>(leds,NUM_LEDS);
      FastLED.clear();//makes sure nothing is on for no reason, because that happens sometimes
     
@@ -63,21 +59,15 @@ void loop(){
     roborio=arduino.available();
     if(!roborio){
        roborio=arduino.available();
-       Serial.println("Not Connected...");
-       if(roborio.connect(ipRobo,1024)){
-         Serial.println("Connected!");
-         Serial.println("mode will now change properly");
-       }else{
-         Serial.print("Connection failure. Error Code: ");
-         Serial.println(roborio.connect(ipRobo, 1024));
-       }
+
+     }else{
+       modeRead(); 
+    
      }
-     modeRead();  
-     curMode->start(); //start whatever mode is selected
-     }    
+     curMode->start();
+}    
 void modeRead(){
    if(roborio.available()){
-     //roborio.connect();
      modeChange(roborio.read());
    }
 }
